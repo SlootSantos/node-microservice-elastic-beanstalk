@@ -17,3 +17,16 @@ after_success:
   - docker push slootsantos/node-micro-server
   - docker push slootsantos/node-micro-worker
   - docker push slootsantos/node-micro-nginx
+
+deploy:
+  provider: elasticbeanstalk
+  region: eu-west-1
+  app: node-docker-micro
+  env: NodeDockerMicro-env
+  bucket_name: elasticbeanstalk-eu-west-1-727205521166
+  bucket_path: node-docker-micro
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: $AWS_SECRET_KEY

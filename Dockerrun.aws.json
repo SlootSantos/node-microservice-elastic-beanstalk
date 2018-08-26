@@ -1,0 +1,35 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "containerDefinitions": [
+    {
+      "name": "client",
+      "image": "slootsantos/node-micro-client",
+      "hostname": "client",
+      "essential": false
+    },
+    {
+      "name": "server",
+      "image": "slootsantos/node-micro-api",
+      "hostname": "api",
+      "essential": false
+    },
+    {
+      "name": "worker",
+      "image": "slootsantos/node-micro-worker",
+      "hostname": "worker",
+      "essential": false
+    },
+    {
+      "name": "nginx",
+      "image": "slootsantos/node-micro-nginx",
+      "essential": true,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 80
+        }
+      ],
+      "links": ["client", "server"]
+    }
+  ]
+}
