@@ -10,7 +10,7 @@
     },
     {
       "name": "server",
-      "image": "slootsantos/node-micro-api",
+      "image": "slootsantos/node-micro-server",
       "hostname": "api",
       "essential": false,
       "memory": 128
