@@ -1,0 +1,19 @@
+services:
+  - docker
+
+before_install:
+  - docker build -t slootsantos/node-react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run slootsantos/node-react-test npm test -- --coverage
+
+after_success:
+  - docker build -t slootsantos/node-micro-client ./client
+  - docker build -t slootsantos/node-micro-server ./server
+  - docker build -t slootsantos/node-micro-worker ./worker
+  - docker build -t slootsantos/node-micro-nginx ./nginx
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push slootsantos/node-micro-client
+  - docker push slootsantos/node-micro-server
+  - docker push slootsantos/node-micro-worker
+  - docker push slootsantos/node-micro-nginx
